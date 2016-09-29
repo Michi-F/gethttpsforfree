@@ -387,9 +387,9 @@ function validateCSR(e){
             // build the account registration signature command
             var account_template = document.getElementById("signing_template").cloneNode(true);
             account_template.querySelectorAll("input")[0].value = "" +
-                "PRIV_KEY=./account.key; " +
+                //"PRIV_KEY=./account.key; " +
                 "echo -n \"" + ACCOUNT_PUBKEY['protected'] + "." + ACCOUNT_PUBKEY['payload'] + "\" | " +
-                "openssl dgst -sha256 -hex -sign $PRIV_KEY";
+                "openssl dgst -sha256 -hex -sign ./letsencrypt.key";
             account_template.querySelectorAll("input")[1].id = "account_sig";
             account_template.querySelectorAll("input")[1].value = "";
             account_template.style.display = null;
@@ -403,9 +403,9 @@ function validateCSR(e){
                 var d_ = d.replace(/\./g, "_");
                 var domain_template = document.getElementById("signing_template").cloneNode(true);
                 domain_template.querySelectorAll("input")[0].value = "" +
-                    "PRIV_KEY=./account.key; " +
+                    //"PRIV_KEY=./account.key; " +
                     "echo -n \"" + DOMAINS[d]['request_protected'] + "." + DOMAINS[d]['request_payload'] + "\" | " +
-                    "openssl dgst -sha256 -hex -sign $PRIV_KEY";
+                    "openssl dgst -sha256 -hex -sign ./letsencrypt.key";
                 domain_template.querySelectorAll("input")[1].id = "domain_sig_" + d_;
                 domain_template.querySelectorAll("input")[1].value = "";
                 domain_template.style.display = null;
@@ -416,9 +416,9 @@ function validateCSR(e){
             // build the csr registration signature command
             var csr_template = document.getElementById("signing_template").cloneNode(true);
             csr_template.querySelectorAll("input")[0].value = "" +
-                    "PRIV_KEY=./account.key; " +
+                    //"PRIV_KEY=./account.key; " +
                     "echo -n \"" + CSR['protected'] + "." + CSR['payload'] + "\" | " +
-                    "openssl dgst -sha256 -hex -sign $PRIV_KEY";
+                    "openssl dgst -sha256 -hex -sign ./letsencrypt.key";
             csr_template.querySelectorAll("input")[1].id = "csr_sig";
             csr_template.querySelectorAll("input")[1].value = "";
             csr_template.style.display = null;
@@ -539,9 +539,9 @@ function validateInitialSigs(e){
                     // build step 4 commands for this domain
                     var challenge_cmd = document.getElementById("signing_template").cloneNode(true);
                     challenge_cmd.querySelectorAll("input")[0].value = "" +
-                        "PRIV_KEY=./account.key; " +
+                        //"PRIV_KEY=./account.key; " +
                         "echo -n \"" + DOMAINS[d]['challenge_protected'] + "." + DOMAINS[d]['challenge_payload'] + "\" | " +
-                        "openssl dgst -sha256 -hex -sign $PRIV_KEY";
+                        "openssl dgst -sha256 -hex -sign ./letsencrypt.key";
                     challenge_cmd.querySelectorAll("input")[1].id = "challenge_sig_" + d_;
                     challenge_cmd.querySelectorAll("input")[1].value = "";
                     challenge_cmd.style.display = null;
